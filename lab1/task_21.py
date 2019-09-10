@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+from pyrob.api import *
+
+
+@task(delay=0.05)
+def task_4_11():
+	move_down()
+	n=13
+	l=0
+	for i in range(13):
+		move_right()
+		for p in range(l):
+			move_down()
+		for j in range(n):
+			fill_cell()
+			move_down()
+		for k in range(n):
+			move_up()
+		n=n-1
+		l=1
+	move_down()
+	while not wall_is_on_the_left():
+		move_left()
+	move_right()
+if __name__ == '__main__':
+    run_tasks()

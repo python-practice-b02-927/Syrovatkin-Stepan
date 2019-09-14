@@ -19,5 +19,7 @@ def task_4_11():
 	while not wall_is_on_the_left():
 		move_left()
 	move_right()
+	
+	
 if __name__ == '__main__':
     run_tasks()

@@ -7,9 +7,13 @@ from pyrob.api import *
 def task_8_22():
 	move_virtically()
 	move_horizontally()
+	
+	
 def move_virtically():
 	while not wall_is_above():
 		move_up()
+		
+		
 def move_horizontally():
 	if wall_is_on_the_right():
 		while not wall_is_on_the_left():

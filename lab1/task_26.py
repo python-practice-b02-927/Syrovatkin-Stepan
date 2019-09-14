@@ -32,5 +32,7 @@ def task_2_4():
 				break
 			move_down(4)
 			move_left(36)
+
+
 if __name__ == '__main__':
     run_tasks()

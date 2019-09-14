@@ -14,5 +14,7 @@ def task_8_30():
 			move_down()
 		if wall_is_beneath() and wall_is_on_the_left():
 			break
+			
+			
 if __name__ == '__main__':
     run_tasks()

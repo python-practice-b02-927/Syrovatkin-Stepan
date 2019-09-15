@@ -7,7 +7,7 @@ from pyrob.api import *
 def task_8_18():
 	n=0
 	while wall_is_beneath():
-		if wall_is_above() and wall_is_beneath():
+		if wall_is_above():
 			fill_cell()
 		while not wall_is_above():
 			move_up()

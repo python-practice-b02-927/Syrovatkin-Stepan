@@ -11,11 +11,14 @@ def task_8_28():
 		move_right()
 	move_out()
 
+	
 def move_out():
 	while not wall_is_above():
 		move_up()
 	while not wall_is_on_the_left():
 		move_left()	
 	return
+
+
 if __name__ == '__main__':
     run_tasks()

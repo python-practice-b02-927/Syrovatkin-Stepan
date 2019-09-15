@@ -15,7 +15,7 @@ def task_8_30():
 			move_left()
 		while not wall_is_beneath():
 			move_down()
-		if wall_is_beneath() and wall_is_on_the_left() and n=1:
+		if wall_is_beneath() and wall_is_on_the_left() and n==1:
 			break
 
 

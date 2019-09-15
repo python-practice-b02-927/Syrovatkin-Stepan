@@ -5,33 +5,30 @@ from pyrob.api import *
 
 @task(delay=0.02)
 def task_2_4():
-	while True:
-		a=0
-		k=0
-		move_right()
+	for i in range(5):
+		for j in range(10):
+			krest()
+		move_down(2)
+		if not wall_is_beneath():
+			move_down(2)
+		move_left(38)
+	
+
+def krest():
+	move_right()
+	fill_cell()
+	for i in range(2):
+		move_down()
 		fill_cell()
-		for i in range(2):
-			move_down()
-			fill_cell()
-		if wall_is_beneath():
-			k=1
-		move_up()
-		move_right()
-		if wall_is_on_the_right():
-			a=1
-		fill_cell()
-		move_left(2)
-		fill_cell()
-		move_up()
-		if a==1:
-			move_left(4)
-		move_right(4)
-		if a==1:
-			if k==1:
-				move_left(36)
-				break
-			move_down(4)
-			move_left(36)
+	move_up()
+	move_right()
+	fill_cell()
+	move_left(2)
+	fill_cell()
+	move_up()
+	move_right(2)
+	if not wall_is_on_the_right():
+		move_right(2)
 
 
 if __name__ == '__main__':

@@ -1,26 +1,30 @@
 import graphics as gr
 
-win = gr.GraphWin("Jenkslex and Ganzz project", 1000, 600)
+win = gr.GraphWin("Jenkslex and Ganzz project", 600, 1000)
 
-def draw_snowman(win):
+def draw_car(win):
 	pass
-def draw_ice_hole(win):
+def draw_buildings(win):
 	pass
-def draw_fishing_rod(win):
+def draw_clouds(win):
 	pass
-def draw_fish(win):
-	pass
-def draw_star(win):
-	pass	
+def draw_background(win):
+	"""Draw sky and ground"""
+	sky=gr.Rectangle(gr.Point(0,0), gr.Point(600,495))
+	sky.setFill('lightgrey')
+	sky.draw(win)
+	ground=gr.Rectangle(gr.Point(0,500), gr.Point(600,1000))
+	ground.setFill('grey')
+	ground.draw(win)
+	
+	
 	
 def main(win):
 	"""Draws picture"""
-	draw_snowman(win)
-	draw_ice_hole(win)
-	draw_fishing_rod(win)
-	draw_fish(win)
-	draw_star(win)
-	
+	draw_car(win)
+	draw_buildings(win)
+	draw_clouds(win)
+	draw_background(win)
 	
 	
 

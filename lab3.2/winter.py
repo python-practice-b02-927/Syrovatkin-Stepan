@@ -7,10 +7,24 @@ def draw_car(win):
 	body1.setOutline(gr.color_rgb(80,200,250))
 	body1.setFill(gr.color_rgb(80,200,250))
 	body1.draw(win)
+	
 	body2=gr.Rectangle(gr.Point(230,540), gr.Point(350,570))
 	body2.setOutline(gr.color_rgb(80,200,250))
 	body2.setFill(gr.color_rgb(80,200,250))
 	body2.draw(win)
+	
+	window1=gr.Rectangle(gr.Point(240,550), gr.Point(280,575))
+	window1.setOutline(gr.color_rgb(240,250,250))
+	window1.setFill(gr.color_rgb(240,250,250))
+	window1.draw(win)
+	
+	window2=gr.Rectangle(gr.Point(300,550), gr.Point(340,575))
+	window2.setOutline(gr.color_rgb(240,250,250))
+	window2.setFill(gr.color_rgb(240,250,250))
+	window2.draw(win)
+	
+	
+	
 def draw_buildings(win):
 	build1=gr.Rectangle(gr.Point(20,20), gr.Point(150,465))
 	build1.setOutline(gr.color_rgb(170,170,170))
@@ -48,6 +62,8 @@ def draw_background(win):
 	ground.setFill(gr.color_rgb(120,120,120))
 	ground.setOutline(gr.color_rgb(120,120,120))
 	ground.draw(win)
+	
+	
 	
 	
 def main(win):

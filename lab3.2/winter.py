@@ -39,6 +39,21 @@ def draw_car(win):
 	wheel2.setFill(gr.color_rgb(0,0,0))
 	wheel2.draw(win)
 	
+	smoke1=gr.Oval(gr.Point(80,580), gr.Point(150,610))
+	smoke1.setOutline(gr.color_rgb(230,230,230))
+	smoke1.setFill(gr.color_rgb(230,230,230))
+	smoke1.draw(win)
+	
+	smoke2=gr.Oval(gr.Point(50,540), gr.Point(120,570))
+	smoke2.setOutline(gr.color_rgb(230,230,230))
+	smoke2.setFill(gr.color_rgb(230,230,230))
+	smoke2.draw(win)
+	
+	smoke3=gr.Oval(gr.Point(20,500), gr.Point(90,530))
+	smoke3.setOutline(gr.color_rgb(230,230,230))
+	smoke3.setFill(gr.color_rgb(230,230,230))
+	smoke3.draw(win)
+	
 	
 	
 	
@@ -83,8 +98,8 @@ def draw_background(win):
 	ground.draw(win)
 	
 	puddle=gr.Oval(gr.Point(0,530), gr.Point(1000,1000))
-	puddle.setFill(gr.color_rgb(200,220,215))
-	puddle.setOutline(gr.color_rgb(200,220,215))
+	puddle.setFill(gr.color_rgb(190,190,200))
+	puddle.setOutline(gr.color_rgb(190,190,200))
 	puddle.draw(win)
 	
 	

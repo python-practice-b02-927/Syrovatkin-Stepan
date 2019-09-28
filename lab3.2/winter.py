@@ -89,6 +89,11 @@ def draw_buildingsandclouds(win):
 	build4.setFill(gr.color_rgb(167,188,203))
 	build4.draw(win)
 	
+	cloud3=gr.Oval(gr.Point(250,-20), gr.Point(650,80))
+	cloud3.setOutline(gr.color_rgb(240,240,240))
+	cloud3.setFill(gr.color_rgb(240,240,240))
+	cloud3.draw(win)
+	
 	build5=gr.Rectangle(gr.Point(380,140), gr.Point(510,545))
 	build5.setOutline(gr.color_rgb(120,140,150))
 	build5.setFill(gr.color_rgb(120,140,150))

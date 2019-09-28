@@ -23,6 +23,16 @@ def draw_car(win):
 	window2.setFill(gr.color_rgb(240,250,250))
 	window2.draw(win)
 	
+	wheel1=gr.Oval(gr.Point(210,595), gr.Point(250,625))
+	wheel1.setOutline(gr.color_rgb(0,0,0))
+	wheel1.setFill(gr.color_rgb(0,0,0))
+	wheel1.draw(win)
+	
+	wheel2=gr.Oval(gr.Point(330,595), gr.Point(370,625))
+	wheel2.setOutline(gr.color_rgb(0,0,0))
+	wheel2.setFill(gr.color_rgb(0,0,0))
+	wheel2.draw(win)
+	
 	
 	
 def draw_buildings(win):

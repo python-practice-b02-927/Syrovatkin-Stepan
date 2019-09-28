@@ -99,6 +99,11 @@ def draw_buildingsandclouds(win):
 	build5.setFill(gr.color_rgb(120,140,150))
 	build5.draw(win)
 	
+	cloud4=gr.Oval(gr.Point(250,300), gr.Point(650,360))
+	cloud4.setOutline(gr.color_rgb(215,215,215))
+	cloud4.setFill(gr.color_rgb(230,230,230))
+	cloud4.draw(win)
+	
 	
 	
 	

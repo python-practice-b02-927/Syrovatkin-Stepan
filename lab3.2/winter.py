@@ -3,6 +3,12 @@ import graphics as gr
 win = gr.GraphWin("Jenkslex and Ganzz project", 600, 800)
 
 def draw_car(win):
+	
+	pipe=gr.Oval(gr.Point(160,595), gr.Point(320,605))
+	pipe.setOutline(gr.color_rgb(0,0,0))
+	pipe.setFill(gr.color_rgb(0,0,0))
+	pipe.draw(win)
+	
 	body1=gr.Rectangle(gr.Point(180,570), gr.Point(400,610))
 	body1.setOutline(gr.color_rgb(80,200,250))
 	body1.setFill(gr.color_rgb(80,200,250))
@@ -35,6 +41,7 @@ def draw_car(win):
 	
 	
 	
+	
 def draw_buildings(win):
 	build1=gr.Rectangle(gr.Point(20,20), gr.Point(150,465))
 	build1.setOutline(gr.color_rgb(170,170,170))
@@ -60,6 +67,7 @@ def draw_buildings(win):
 	build5.setOutline(gr.color_rgb(120,140,150))
 	build5.setFill(gr.color_rgb(120,140,150))
 	build5.draw(win)
+	
 def draw_clouds(win):
 	pass
 def draw_background(win):
@@ -68,10 +76,16 @@ def draw_background(win):
 	sky.setOutline(gr.color_rgb(210,210,210))
 	sky.setFill(gr.color_rgb(210,210,210))
 	sky.draw(win)
+	
 	ground=gr.Rectangle(gr.Point(0,450), gr.Point(600,1000))
 	ground.setFill(gr.color_rgb(120,120,120))
 	ground.setOutline(gr.color_rgb(120,120,120))
 	ground.draw(win)
+	
+	puddle=gr.Oval(gr.Point(0,530), gr.Point(1000,1000))
+	puddle.setFill(gr.color_rgb(200,220,215))
+	puddle.setOutline(gr.color_rgb(200,220,215))
+	puddle.draw(win)
 	
 	
 	

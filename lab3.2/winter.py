@@ -58,15 +58,21 @@ def draw_car(win):
 	
 	
 def draw_buildingsandclouds(win):
-	build1=gr.Rectangle(gr.Point(20,20), gr.Point(150,465))
-	build1.setOutline(gr.color_rgb(170,170,170))
-	build1.setFill(gr.color_rgb(170,170,170))
-	build1.draw(win)
 	
 	cloud1=gr.Oval(gr.Point(-60,80), gr.Point(400,150))
 	cloud1.setOutline(gr.color_rgb(245,245,245))
 	cloud1.setFill(gr.color_rgb(245,245,245))
 	cloud1.draw(win)
+	
+	build1=gr.Rectangle(gr.Point(20,20), gr.Point(150,465))
+	build1.setOutline(gr.color_rgb(170,170,170))
+	build1.setFill(gr.color_rgb(170,170,170))
+	build1.draw(win)
+	
+	cloud2=gr.Oval(gr.Point(-60,350), gr.Point(250,400))
+	cloud2.setOutline(gr.color_rgb(100,100,130))
+	cloud2.setFill(gr.color_rgb(100,100,130))
+	cloud2.draw(win)
 	
 	build2=gr.Rectangle(gr.Point(160,60), gr.Point(290,475))
 	build2.setOutline(gr.color_rgb(138,168,191))

@@ -17,19 +17,30 @@ def draw_sphere():
     sphere.draw(win)
     sphere.setWidth(15)
 
-def draw_ball(coords):
-    circle = gr.Circle(coords, 10)
+def draw_ball():
+    circle = gr.Circle(coords, 15)
     circle.setFill('aqua')
     circle.draw(win)
+    return circle
 
+def ball_move(circle):
+    circle.move(velocity.x, velocity.y)
 
 def add(point_1, point_2):
-    new_point = Point(point_1.x + point_2.x, point_1.y + point_2.y)
+    new_point = gr.Point(point_1.x + point_2.x, point_1.y + point_2.y)
     return new_point    
         
 def main(win):
     draw_sphere()
-    draw_ball(coords)
+    circle0 = draw_ball()
+    while True:
+        ball_move(circle0)
+        
+        global coords
+        
+        coords=add(coords, velocity)
+        
+        gr.time.sleep(0.02)
 
 main(win)    
 win.getMouse()

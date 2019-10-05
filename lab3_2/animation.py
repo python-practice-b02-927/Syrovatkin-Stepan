@@ -23,25 +23,36 @@ def draw_ball():
     circle.draw(win)
     return circle
 
+
 def ball_move(circle):
     circle.move(velocity.x, velocity.y)
+
 
 def add(point_1, point_2):
     new_point = gr.Point(point_1.x + point_2.x, point_1.y + point_2.y)
     return new_point    
-        
-def main(win):
-    draw_sphere()
-    circle0 = draw_ball()
-    while True:
-        ball_move(circle0)
-        
-        global coords
-        
-        coords=add(coords, velocity)
-        
-        gr.time.sleep(0.02)
 
-main(win)    
+def condition(velocity, x, y):
+    if (x0-x)**2 + (y0-y)**2 >= 250**2:
+        velocity = 0
+        
+    return velocity
+    
+       
+
+draw_sphere()
+circle = draw_ball()
+
+while True:
+	
+    ball_move(circle)
+    coords=add(coords, velocity)
+     
+    x=coords.x
+    y=coords.y
+    velocity = condition(velocity, x, y)
+    
+    gr.time.sleep(0.02)
+    
 win.getMouse()
 win.close

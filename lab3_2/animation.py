@@ -1,6 +1,6 @@
 import graphics as gr
 from math import sqrt
-                                                                              
+
 win = gr.GraphWin("Jenkslex and Ganzz project", 800, 1000)
 win.setBackground('purple')
 
@@ -72,15 +72,15 @@ draw_sphere()
 circle = draw_ball()
 
 while True:
-	
+
     ball_move(circle)
     coords=add(coords, velocity)
      
     x=coords.x
     y=coords.y
     velocity = condition(velocity, x, y)
-    
+
     gr.time.sleep(0.02)
-    
+
 win.getMouse()
 win.close

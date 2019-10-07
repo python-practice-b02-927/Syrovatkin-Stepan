@@ -5,7 +5,7 @@ win = gr.GraphWin("Jenkslex and Ganzz project", 800, 1000)
 win.setBackground('purple')
 
 coords=gr.Point(200, 200)
-velocity=gr.Point(2,3)
+velocity=gr.Point(2,7)
 
 x0 = 400
 y0 = 325
@@ -23,22 +23,34 @@ def draw_ball():
     circle.draw(win)
     return circle
 
-
 def ball_move(circle):
     circle.move(velocity.x, velocity.y)
-
 
 def add(point_1, point_2):
     new_point = gr.Point(point_1.x + point_2.x, point_1.y + point_2.y)
     return new_point    
 
+def r(x,y):
+    radius_vector = gr.Point((x0-x) / 275, (y0-y) / 275)
+    return r_vector
+
+def n(x,y):
+    normal_vector = gr.Point((x0-x) / 275, (y0-y) / 275)
+    return r_vector
+
+def scalar_multiplication(vector_1, vector_2):
+    scalar = vector_1.x*vector_2.x + vector_1.y*vector_2.y
+    return scalar
+
+def velocity_changing(velocity, x, y):
+    
+    return velocity
+
 def condition(velocity, x, y):
     if (x0-x)**2 + (y0-y)**2 >= 250**2:
-        velocity = 0
+        velocity = velocity_changing(velocity, x, y)
         
     return velocity
-    
-       
 
 draw_sphere()
 circle = draw_ball()

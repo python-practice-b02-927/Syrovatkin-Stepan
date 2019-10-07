@@ -43,6 +43,10 @@ def scalar_multiplication(vector_1, vector_2):
     return scalar
 
 def velocity_changing(velocity, x, y):
+    vel_normal_0 = r(x,y)*scalar_multiplication(r(x,y), velocity)
+    vel_tau = n(x,y)*scalar_multiplication(n(x,y), velocity)
+    vel_normal_1 = -vel_normal_0
+    
     
     return velocity
 

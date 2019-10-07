@@ -47,6 +47,9 @@ def velocity_changing(velocity, x, y):
     vel_tau = n(x,y)*scalar_multiplication(n(x,y), velocity)
     vel_normal_1 = -vel_normal_0
     
+    i = gr.Point(1, 0)
+    j = gr.Point(0, 1)
+    
     
     return velocity
 

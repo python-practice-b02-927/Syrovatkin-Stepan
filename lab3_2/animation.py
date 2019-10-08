@@ -8,7 +8,7 @@ coords=gr.Point(200, 200)
 velocity=gr.Point(2,5)
 
 x0 = 400
-y0 = 325
+y0 = 300
 
 def draw_sphere():
     sphere = gr.Circle(gr.Point(x0, y0), 275)

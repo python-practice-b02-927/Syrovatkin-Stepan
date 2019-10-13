@@ -42,9 +42,12 @@ def click(event):
     i-=1
     print('click')
 
-   
+def motion():
+    for k, b in enumerate(balls):
+        canv.move(b['id'], b['vx'], b['vy']) 
+    root.after(10, motion)    
         
 new_ball()
-
+motion()
 canv.bind('<Button-1>', click)
 mainloop()

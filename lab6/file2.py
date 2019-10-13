@@ -43,8 +43,14 @@ def click(event):
     print('click')
 
 def motion():
-    for k, b in enumerate(balls):
-        canv.move(b['id'], b['vx'], b['vy']) 
+    for b in balls:
+        if b['x']-b['r']<0 or b['x']+b['r']>800:
+            b['vx'] = -b['vx']
+        if b['y']-b['r']<0 or b['y']+b['r']>600:
+            b['vy'] = -b['vy']
+        canv.move(b['id'], b['vx'], b['vy'])
+        b['x']+=b['vx']
+        b['y']+=b['vy']
     root.after(10, motion)    
         
 new_ball()

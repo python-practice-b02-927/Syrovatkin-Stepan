@@ -14,6 +14,7 @@ k=0
 m=1000
 balls=[]
 
+
 colors = ['red','orange','yellow','green','blue']
 def new_ball():
     global x, y, r, m
@@ -21,15 +22,17 @@ def new_ball():
     x = rnd(100,700)
     y = rnd(100,500)
     r = rnd(30,50)
+    vx = rnd(-5,5)
+    vy = rnd(-5,5)
     id_ = canv.create_oval(x-r,y-r,x+r,y+r,fill = choice(colors), width=0)
-    ball={'id': id_, 'x': x, 'y': y, 'r': r}
+    ball={'id': id_, 'x': x, 'y': y, 'r': r, 'vx': vx, 'vy': vy}
     balls.append(ball)
     root.after(m,new_ball)
     l['text'] = 'Score: ' + str(i)
 
 def click(event):
     global i, m
-    for k, b in enumerate(balls):
+    for k, b in enumerate(balls):   
         if (event.x-b['x'])**2 + (event.y-b['y'])**2 <= b['r']**2:
             i+=2
             canv.delete(b['id'])
@@ -39,6 +42,9 @@ def click(event):
     i-=1
     print('click')
 
+   
+        
 new_ball()
+
 canv.bind('<Button-1>', click)
 mainloop()

@@ -22,8 +22,8 @@ def new_ball():
     x = rnd(100,700)
     y = rnd(100,500)
     r = rnd(30,50)
-    vx = rnd(-5,5)
-    vy = rnd(-5,5)
+    vx = rnd(-3,3)
+    vy = rnd(-3,3)
     id_ = canv.create_oval(x-r,y-r,x+r,y+r,fill = choice(colors), width=0)
     ball={'id': id_, 'x': x, 'y': y, 'r': r, 'vx': vx, 'vy': vy}
     balls.append(ball)

@@ -36,13 +36,13 @@ def add(point_1, point_2):
     return new_point    
 
 
-def r(x,y):
+def get_r_vector(x,y):
     length_vector = sqrt((x0-x)**2 + (y0-y)**2)
     radius_vector = gr.Point((x0-x) / length_vector, (y0-y) / length_vector)
     return radius_vector
 
 
-def n(x,y):
+def get_normal(x,y):
     length_vector = sqrt((x0-x)**2 + (y0-y)**2)
     normal_vector = gr.Point((y0-y) / length_vector, -(x0-x) / length_vector)
     return normal_vector
@@ -53,16 +53,16 @@ def scalar_multiplication(vector_1, vector_2):
     return scalar
 
 
-def velocity_changing(velocity, x, y):
-    vel_normal_0 = gr.Point(r(x,y).x
-                            *scalar_multiplication(r(x,y),velocity), 
-                            r(x,y).y
-                            *scalar_multiplication(r(x,y),velocity)
+def reflect_velocity(velocity, x, y):
+    vel_normal_0 = gr.Point(get_r_vector(x,y).x
+                            *scalar_multiplication(get_r_vector(x,y),velocity), 
+                            get_r_vector(x,y).y
+                            *scalar_multiplication(get_r_vector(x,y),velocity)
     )
-    vel_tau = gr.Point(n(x,y).x
-                       *scalar_multiplication(n(x,y),velocity), 
-                       n(x,y).y
-                       *scalar_multiplication(n(x,y),velocity)
+    vel_tau = gr.Point(get_normal(x,y).x
+                       *scalar_multiplication(get_normal(x,y),velocity), 
+                       get_normal(x,y).y
+                       *scalar_multiplication(get_normal(x,y),velocity)
     )
     vel_normal_1 = gr.Point(-vel_normal_0.x,-vel_normal_0.y)
     
@@ -80,9 +80,9 @@ def velocity_changing(velocity, x, y):
     return velocity
 
 
-def condition(velocity, x, y):
+def update_velocity(velocity, x, y):
     if (x0-x)**2 + (y0-y)**2 >= 250**2:
-        velocity = velocity_changing(velocity, x, y)
+        velocity = reflect_velocity(velocity, x, y)
         
     return velocity
 
@@ -97,7 +97,7 @@ while True:
      
     x = coords.x
     y = coords.y
-    velocity = condition(velocity, x, y)
+    velocity = update_velocity(velocity, x, y)
 
     gr.time.sleep(0.02)
 

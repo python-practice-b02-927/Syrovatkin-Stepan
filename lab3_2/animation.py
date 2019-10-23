@@ -21,6 +21,7 @@ WALL_THICKNESS = 15
 # The effective radius of the area where the ball moves
 EFFECTIVE_RADIUS = 250
 
+
 def draw_sphere():
     sphere = gr.Circle(gr.Point(x0, y0), CELL_RADIUS)
     sphere.setFill('red')

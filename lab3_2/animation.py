@@ -64,15 +64,15 @@ def scalar_multiplication(vector_1, vector_2):
 
 
 def reflect_velocity(velocity, x, y):
-    vel_normal_0 = gr.Point(get_r_vector(x,y).x
-                            *scalar_multiplication(get_r_vector(x,y),velocity), 
-                            get_r_vector(x,y).y
-                            *scalar_multiplication(get_r_vector(x,y),velocity)
+    vel_normal_0 = gr.Point(get_r_vector(x,y).x 
+                            * scalar_multiplication(get_r_vector(x,y),velocity), 
+                            get_r_vector(x,y).y 
+                            * scalar_multiplication(get_r_vector(x,y),velocity)
     )
-    vel_tau = gr.Point(get_normal(x,y).x
-                       *scalar_multiplication(get_normal(x,y),velocity), 
-                       get_normal(x,y).y
-                       *scalar_multiplication(get_normal(x,y),velocity)
+    vel_tau = gr.Point(get_normal(x,y).x 
+                       * scalar_multiplication(get_normal(x,y),velocity), 
+                       get_normal(x,y).y 
+                       * scalar_multiplication(get_normal(x,y),velocity)
     )
     vel_normal_1 = gr.Point(-vel_normal_0.x,-vel_normal_0.y)
     

@@ -8,20 +8,29 @@ win.setBackground('purple')
 
 coords=gr.Point(200, 200)
 velocity=gr.Point(2,5)
-
+# x-coordinate of the cell centre
 x0 = 400
-y0 = 300
+# y-coordinate of the cell centre
+y0 = 300 
+# The radius of the ball
+BALL_RADIUS  = 20
+# The radius of the sphere containing the ball
+CELL_RADIUS = 275
+# The thickness of the wall of the cavern
+WALL_THICKNESS = 15
+# The effective radius of the area where the ball moves
+EFFECTIVE_RADIUS = 250
 
 def draw_sphere():
-    sphere = gr.Circle(gr.Point(x0, y0), 275)
+    sphere = gr.Circle(gr.Point(x0, y0), CELL_RADIUS)
     sphere.setFill('red')
     sphere.setOutline('yellow')
     sphere.draw(win)
-    sphere.setWidth(15)
+    sphere.setWidth(WALL_THICKNESS)
 
 
 def draw_ball():
-    circle = gr.Circle(coords, 20)
+    circle = gr.Circle(coords, BALL_RADIUS)
     circle.setFill('aqua')
     circle.draw(win)
     return circle
@@ -81,7 +90,7 @@ def reflect_velocity(velocity, x, y):
 
 
 def update_velocity(velocity, x, y):
-    if (x0-x)**2 + (y0-y)**2 >= 250**2:
+    if (x0-x)**2 + (y0-y)**2 >= EFFECTIVE_RADIUS**2:
         velocity = reflect_velocity(velocity, x, y)
         
     return velocity

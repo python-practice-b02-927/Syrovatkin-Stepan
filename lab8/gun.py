@@ -140,6 +140,8 @@ class Target():
         self.live = 1
         self.id = canv.create_oval(0,0,0,0)
         self.new_target()
+        self.vx=rnd(-4, 4)
+        self.vy=rnd(-4, 4)
 
     def new_target(self):
         """ Инициализация новой цели. """
@@ -156,6 +158,21 @@ class Target():
         canv.coords(self.id, -10, -10, -10, -10)
         all_points += points
         canv.itemconfig(id_points, text=all_points)
+    def move_target(self, other):
+        if self.x+self.vx>=780 or self.x+self.vx<=20:
+            self.vx = -self.vx
+        if self.y+self.vy>=550 or self.y+self.vy<=200:
+            self.vy = -self.vy
+        self.x = self.x+self.vx
+        self.y = self.y+self.vy
+        canv.delete(self, self.id)
+        self.id = canv.create_oval(
+                self.x - self.r,
+                self.y - self.r,
+                self.x + self.r,
+                self.y + self.r,
+                fill=self.color)
+
 
 t1 = Target()
 t2 = Target()
@@ -184,6 +201,13 @@ def new_game(event=''):
     t1.live = 1
     t2.live = 1
     while balls or t1.live or t2.live:
+        if t1.live and t2.live:
+            t2.move_target([t1, t2])
+            t1.move_target([t1, t2])
+        elif t1.live:
+            t1.move_target([t1, t2])
+        elif t2.live:
+            t2.move_target([t1, t2])
         for b in balls:
             b.move()
             if b.hittest(t2) and t2.live:

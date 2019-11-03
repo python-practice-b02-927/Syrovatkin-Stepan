@@ -11,6 +11,9 @@ root.geometry('800x600')
 canv = tk.Canvas(root, bg='white')
 canv.pack(fill=tk.BOTH, expand=1)
 g = 9.81
+all_points = 0
+id_points = canv.create_text(30,30,text = all_points,font = '28')
+
 
 class Ball():
     def __init__(self, x=40, y=450):
@@ -131,12 +134,11 @@ class Gun():
 
 
 class Target():
+    global all_points, id_points
     def __init__(self):
         self.points = 0
         self.live = 1
-    # FIXME: don't work!!! How to call this functions when object is created?
         self.id = canv.create_oval(0,0,0,0)
-        self.id_points = canv.create_text(30,30,text = self.points,font = '28')
         self.new_target()
 
     def new_target(self):
@@ -150,12 +152,13 @@ class Target():
 
     def hit(self, points=1):
         """Попадание шарика в цель."""
+        global all_points, id_points
         canv.coords(self.id, -10, -10, -10, -10)
-        self.points += points
-        canv.itemconfig(self.id_points, text=self.points)
-
+        all_points += points
+        canv.itemconfig(id_points, text=all_points)
 
 t1 = Target()
+t2 = Target()
 screen1 = canv.create_text(400, 300, text='', font='28')
 g1 = Gun()
 bullet = 0
@@ -163,8 +166,9 @@ balls = []
 
 
 def new_game(event=''):
-    global gun, t1, screen1, balls, bullet
+    global gun, t1, t2, screen1, balls, bullet, all_points, id_points
     t1.new_target()
+    t2.new_target()
     bullet = 0
     if balls:
         for i in range(len(balls)-1, -1, -1):
@@ -178,12 +182,17 @@ def new_game(event=''):
 
     z = 0.03
     t1.live = 1
-    while t1.live or balls:
+    t2.live = 1
+    while balls or t1.live or t2.live:
         for b in balls:
             b.move()
+            if b.hittest(t2) and t2.live:
+                t2.live = 0
+                t2.hit()
             if b.hittest(t1) and t1.live:
                 t1.live = 0
                 t1.hit()
+            if (t1.live == 0) and (t2.live == 0):
                 canv.bind('<Button-1>', '')
                 root.bind('<Return>', new_game)
                 canv.bind('<ButtonRelease-1>', '')

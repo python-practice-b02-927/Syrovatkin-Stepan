@@ -89,7 +89,8 @@ class Gun():
         self.f2_power = 10
         self.f2_on = 0
         self.an = 1
-        self.id = canv.create_line(20,450,50,420,width=7) # FIXME: don't know how to set it...
+        self.id = canv.create_line(20,450,50,420,width=7)
+        self.y = 420 
 
     def fire2_start(self, event):
         self.f2_on = 1
@@ -119,9 +120,9 @@ class Gun():
             canv.itemconfig(self.id, fill='orange')
         else:
             canv.itemconfig(self.id, fill='black')
-        canv.coords(self.id, 20, 450,
+        canv.coords(self.id, 20, self.y,
                     20 + max(self.f2_power, 20) * math.cos(self.an),
-                    450 + max(self.f2_power, 20) * math.sin(self.an)
+                    self.y + max(self.f2_power, 20) * math.sin(self.an)
                     )
 
     def power_up(self):
@@ -132,7 +133,21 @@ class Gun():
         else:
             canv.itemconfig(self.id, fill='black')
 
+    def move_down(self, event):
+        if self.y < 500 :
+            self.y +=1
+            canv.coords(self.id, 20, self.y,
+                    20 + max(self.f2_power, 20) * math.cos(self.an),
+                    self.y + max(self.f2_power, 20) * math.sin(self.an)
+                    )
 
+    def move_up(self, event):
+        if self.y > 150 :
+            self.y -=1
+            canv.coords(self.id, 20, self.y,
+                    20 + max(self.f2_power, 20) * math.cos(self.an),
+                    self.y + max(self.f2_power, 20) * math.sin(self.an)
+                    )
 class Target():
     global all_points, id_points
     def __init__(self):
@@ -196,6 +211,8 @@ def new_game(event=''):
     canv.bind('<Button-1>', g1.fire2_start)
     canv.bind('<ButtonRelease-1>', g1.fire2_end)
     canv.bind('<Motion>', g1.targetting)
+    root.bind('<Up>', g1.move_up)
+    root.bind('<Down>', g1.move_down)
 
     z = 0.03
     t1.live = 1
@@ -226,7 +243,7 @@ def new_game(event=''):
         g1.targetting()
         g1.power_up()
     canv.itemconfig(screen1, text='')
-    #canv.delete(gun)
+    canv.delete(gun)
     root.after(750, new_game)
 
 

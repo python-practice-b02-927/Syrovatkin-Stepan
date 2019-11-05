@@ -90,6 +90,7 @@ class Gun():
         self.f2_on = 0
         self.an = 1
         self.id = canv.create_line(20,450,50,420,width=7)
+        self.x = 20
         self.y = 420 
 
     def fire2_start(self, event):
@@ -103,7 +104,7 @@ class Gun():
         """
         global balls, bullet
         bullet += 1
-        new_ball = Ball()
+        new_ball = Ball(self.x, self.y)
         new_ball.r += 5
         self.an = math.atan((event.y-new_ball.y) / (event.x-new_ball.x))
         new_ball.vx = self.f2_power * math.cos(self.an)
@@ -134,7 +135,7 @@ class Gun():
             canv.itemconfig(self.id, fill='black')
 
     def move_down(self, event):
-        if self.y < 500 :
+        if self.y < 480 :
             self.y +=1
             canv.coords(self.id, 20, self.y,
                     20 + max(self.f2_power, 20) * math.cos(self.an),

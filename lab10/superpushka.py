@@ -169,8 +169,8 @@ class Ball(Agent):
         return state
 
 
-class Gun1(Agent):
-    def __init__(self, canvas):
+class Gun(Agent):
+    def __init__(self, canvas, coords=[20, 450]):
         super().__init__()
 
         self.gun_velocity = 1
@@ -179,7 +179,7 @@ class Gun1(Agent):
         self.max_gun_power = 70
         self.zero_power_length = 20
 
-        self.gun_coords = [20, 450]
+        self.gun_coords = coords
         self.vy = 0
         self.mouse_coords = [None, None]
         self.f2_power = 10
@@ -216,6 +216,10 @@ class Gun1(Agent):
 
     def update(self):
         self.gun_coords[1] += self.vy
+        if self.gun_coords[1] > 450:
+            self.gun_coords[1] = 450
+        if self.gun_coords[1] < 50:
+            self.gun_coords[1] = 50
         self.update_angle()
         if self.f2_on:
             self.f2_power = min(
@@ -229,10 +233,7 @@ class Gun1(Agent):
         self.mouse_coords = self.canvas.get_mouse_coords()
         dx = self.mouse_coords[0]-self.gun_coords[0]
         dy = self.mouse_coords[1]-self.gun_coords[1]
-        if dx != 0:
-            self.an = math.atan(dy / dx)
-        else:
-            self.an = 1
+        self.an = math.atan2(dy, dx)
 
     def get_gunpoint(self):
         length = self.f2_power + self.zero_power_length
@@ -310,146 +311,6 @@ class Gun1(Agent):
         self.an = state['an']
         self.job = job_init if state['job'] else None
 
-class Gun2(Agent):
-    def __init__(self, canvas):
-        super().__init__()
-
-        self.gun_velocity = 1
-        self.gun_power_gain = 1
-        self.min_gun_power = 10
-        self.max_gun_power = 70
-        self.zero_power_length = 20
-
-        self.gun_coords = [720, 450]
-        self.vy = 0
-        self.mouse_coords = [None, None]
-        self.f2_power = 10
-        self.f2_on = 0
-        self.an = 1
-
-        self.canvas = canvas
-        self.id = self.canvas.create_line(
-            *self.gun_coords, *self.get_gunpoint(), width=7)
-
-        self.job = None
-
-    def start(self):
-        self.bind_all()
-        super().start()
-
-    def play(self):
-        if self.job == 'pause':
-            self.bind_all()
-        super().play()
-
-    def stop(self):
-        super().stop()
-        self.unbind_all()
-        self.vy = 0
-        self.f2_power = 10
-        self.f2_on = 0
-        self.mouse_coords = [None, None]
-
-    def pause(self):
-        super().pause()
-        self.unbind_all()
-        self.mouse_coords = [None, None]
-
-    def update(self):
-        self.gun_coords[1] += self.vy
-        self.update_angle()
-        if self.f2_on:
-            self.f2_power = min(
-                self.f2_power + self.gun_power_gain, self.max_gun_power)
-        else:
-            self.f2_power = self.min_gun_power
-        self.redraw()
-        self.job = self.canvas.after(DT, self.update)
-
-    def update_angle(self):
-        self.mouse_coords = self.canvas.get_mouse_coords()
-        dx = self.mouse_coords[0]-self.gun_coords[0]
-        dy = self.mouse_coords[1]-self.gun_coords[1]
-        if dx != 0:
-            self.an = math.atan(dy / dx)
-        else:
-            self.an = 1
-
-    def get_gunpoint(self):
-        length = self.f2_power + self.zero_power_length
-        x = self.gun_coords[0] - length * math.cos(self.an)
-        y = self.gun_coords[1] - length * math.sin(self.an)
-        return x, y
-
-    def redraw(self):
-        self.canvas.coords(
-            self.id,
-            *self.gun_coords,
-            *self.get_gunpoint()
-        )
-        if self.f2_on:
-            self.canvas.itemconfig(self.id, fill='orange')
-        else:
-            self.canvas.itemconfig(self.id, fill='black')
-
-    def fire2_start(self, event):
-        self.f2_on = 1
-
-    def fire2_end(self, event):
-        self.update_angle()
-        bullet_vx = self.f2_power * math.cos(self.an)
-        bullet_vy = -self.f2_power * math.sin(self.an)
-        bullet = Ball(self.canvas, *self.get_gunpoint(), bullet_vx, bullet_vy)
-        bullet.start()
-        self.f2_on = 0
-        self.f2_power = 10
-
-    def set_movement_direction_to_up(self, event):
-        self.vy = -self.gun_velocity
-
-    def set_movement_direction_to_down(self, event):
-        self.vy = self.gun_velocity
-
-    def stop_movement(self, event):
-        self.vy = 0
-
-    def bind_all(self):
-        self.canvas.bind('<Button-1>', self.fire2_start, add='')
-        self.canvas.bind('<ButtonRelease-1>', self.fire2_end, add='')
-
-        root = self.canvas.get_root()
-        root.bind('<Up>', self.set_movement_direction_to_up, add='')
-        root.bind('<KeyRelease-Up>', self.stop_movement, add='')
-        root.bind('<Down>', self.set_movement_direction_to_down, add='')
-        root.bind('<KeyRelease-Down>', self.stop_movement, add='')
-
-    def unbind_all(self):
-        self.canvas.bind('<Button-1>', pass_event, add='')
-        self.canvas.bind('<ButtonRelease-1>', pass_event, add='')
-        root = self.canvas.get_root()
-        root.bind('<Up>', pass_event, add='')
-        root.bind('<KeyRelease-Up>', pass_event, add='')
-        root.bind('<Down>', pass_event, add='')
-        root.bind('<KeyRelease-Down>', pass_event, add='')
-
-    def get_state(self):
-        state = {
-            "gun_coords": self.gun_coords,
-            "vy": self.vy,
-            "f2_power": self.f2_power,
-            "f2_on": self.f2_on,
-            "an": self.an,
-            "job": self.job is not None
-        }
-        return state
-
-    def set_state(self, state, job_init):
-        self.gun_coords = list(state['gun_coords'])
-        self.vy = state['vy']
-        self.f2_power = state['f2_power']
-        self.f2_on = state['f2_on']
-        self.an = state['an']
-        self.job = job_init if state['job'] else None
 
 class Target(Agent):
     def __init__(
@@ -521,8 +382,9 @@ class BattleField(tk.Canvas):
 
         self.num_targets = 2
 
-        self.gun = Gun1(self)
-        self.gun = Gun2(self)
+        self.gun_left = Gun(self, [20, 450])
+        self.gun_right = Gun(self, [750, 450])
+        
         self.targets = {}
         self.bullets = {}
 
@@ -536,6 +398,18 @@ class BattleField(tk.Canvas):
 
         self.catch_victory_job = None
         self.canvas_restart_job = None
+        self.active_gun = 'left'
+        self.get_root().bind('<Button-3>', self.change_gun)
+        
+    def change_gun(self, event):
+        if self.active_gun == 'left':
+            self.active_gun = 'right'
+            self.gun_left.stop()
+            self.gun_right.start()
+        else:
+            self.active_gun = 'left'
+            self.gun_right.stop()
+            self.gun_left.start()
 
     def remove_targets(self, targets_to_remove=None):
         if targets_to_remove is None:
@@ -577,7 +451,10 @@ class BattleField(tk.Canvas):
 
     def start(self):
         self.catch_victory_job = self.after(DT, self.catch_victory)
-        self.gun.start()
+        if self.active_gun == 'left':
+            self.gun_left.start()
+        else:
+            self.gun_right.start()
         for t in self.targets.values():
             t.start()
         for b in self.bullets.values():
@@ -592,14 +469,18 @@ class BattleField(tk.Canvas):
 
     def play(self):
         self.play_jobs()
-        self.gun.play()
+        if self.active_gun == 'left':
+            self.gun_left.play()
+        else:
+            self.gun_right.play()
         for t in self.targets.values():
             t.play()
         for b in self.bullets.values():
             b.play()
 
     def stop(self):
-        self.gun.stop()
+        self.gun_left.stop()
+        self.gun_right.stop()
         for t in self.targets.values():
             t.stop()
         for b in self.bullets.values():
@@ -620,7 +501,8 @@ class BattleField(tk.Canvas):
             self.canvas_restart_job = 'pause'
 
     def pause(self):
-        self.gun.pause()
+        self.gun_left.pause()
+        self.gun_right.pause()
         for t in self.targets.values():
             t.pause()
         for b in self.bullets.values():
@@ -677,7 +559,8 @@ class BattleField(tk.Canvas):
 
     def get_state(self):
         state = {
-            "gun": self.gun.get_state(),
+            "gun_left": self.gun_left.get_state(),
+            "gun_right": self.gun_right.get_state(),
             "targets": [t.get_state() for t in self.targets.values()],
             "bullets": [b.get_state() for b in self.bullets.values()],
             "bullet_counter": self.bullet_counter,
@@ -689,7 +572,8 @@ class BattleField(tk.Canvas):
         return state
 
     def set_state(self, state, job_init):
-        self.gun.set_state(state['gun'], job_init)
+        self.gun_left.set_state(state['gun_left'], job_init)
+        self.gun_right.set_state(state['gun_right'], job_init)
         self.remove_targets()
         self.create_targets_from_states(state['targets'], job_init)
         self.remove_bullets()
